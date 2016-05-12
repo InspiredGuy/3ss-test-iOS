@@ -7,9 +7,18 @@
 //
 
 import UIKit
+import Alamofire
+import PromiseKit
 
 class ProjectsDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
+    private var _dataSource: [Project] = []
+    
+    var projects : [Project] {
+        get {
+            return self._dataSource
+        }
+    }
     
     // MARK : - Table view
     
@@ -18,19 +27,32 @@ class ProjectsDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return self._dataSource.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ProjectCell", forIndexPath: indexPath) as! ProjectTableViewCell
         cell.layoutMargins = UIEdgeInsetsZero;
+        cell.update(self._dataSource[indexPath.row])
         return cell
     }
     
     // MARK : - Custom methods
     
-    func loadData(callback: ((Void) -> Void)) {
-        // TODO : Network request to load data
+    func loadData(callback: ((Void) -> Void)?) {
+        NetworkingService.call(Constants.API.Action.Projects, params: nil)
+            .then { response -> Void in
+            self._dataSource = []
+            response["projects"].arrayValue.forEach({ (project) in
+                self._dataSource.append(Project(json: project))
+            })
+        }.always {
+            if let call = callback {
+                call()
+            }
+        }.error { error in
+            print(error)
+        }
     }
     
 }

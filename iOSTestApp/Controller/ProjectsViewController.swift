@@ -11,6 +11,8 @@ import UIKit
 class ProjectsViewController: UITableViewController {
     
     let dataSource = ProjectsDataSource()
+    
+    var shouldCollapse = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +50,7 @@ class ProjectsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.shouldCollapse = false
         self.performSegueWithIdentifier("showDetail", sender: self)
     }
     
@@ -57,6 +60,7 @@ class ProjectsViewController: UITableViewController {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! ProjectDetailsViewController
+                controller.project = self.dataSource.projects[indexPath.row]
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }

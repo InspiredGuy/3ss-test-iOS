@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ProjectTableViewCell: UITableViewCell {
     
@@ -25,11 +26,12 @@ class ProjectTableViewCell: UITableViewCell {
     
     // MARK: - Update
     
-    func update(title: String, year: Int, solutions: [String], imageURLString: String) {
-        self.labelTitle.text = title
-        self.labelYear.text = "\(year)"
-        self.labelSolutions.text = solutions.joinWithSeparator(", ")
-        // TODO : download image asynchronously
+    func update(project: Project) {
+        self.labelTitle.text = project.name
+        self.labelYear.text = "\(project.year)"
+        self.labelYear.hidden = (project.year == 0)
+        self.labelSolutions.text = project.solutionTypes.joinWithSeparator(", ")
+        self.imageViewLogo.sd_setImageWithURL(NSURL(string: project.imageURLString))
     }
     
 }
