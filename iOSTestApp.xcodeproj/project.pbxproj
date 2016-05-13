@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		CFC396541CE4816200203D00 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC396531CE4816200203D00 /* SwiftyJSON.swift */; };
+		CFC396561CE5BEF900203D00 /* ProjectAssetsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC396551CE5BEF900203D00 /* ProjectAssetsDataSource.swift */; };
+		CFC396591CE5BF9000203D00 /* ProjectAssetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC396571CE5BF9000203D00 /* ProjectAssetCollectionViewCell.swift */; };
+		CFC3965A1CE5BF9000203D00 /* ProjectAssetCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFC396581CE5BF9000203D00 /* ProjectAssetCollectionViewCell.xib */; };
+		CFC3965C1CE5BFB100203D00 /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3965B1CE5BFB100203D00 /* Asset.swift */; };
+		CFC396601CE5FE6A00203D00 /* AssetsGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3965F1CE5FE6A00203D00 /* AssetsGalleryViewController.swift */; };
+		CFC396621CE61CF600203D00 /* ClientStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC396611CE61CF600203D00 /* ClientStorage.swift */; };
 		CFD1A33B1CE359CF00A6E385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD1A33A1CE359CF00A6E385 /* AppDelegate.swift */; };
 		CFD1A3421CE359CF00A6E385 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFD1A3401CE359CF00A6E385 /* Main.storyboard */; };
 		CFD1A3441CE359CF00A6E385 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFD1A3431CE359CF00A6E385 /* Assets.xcassets */; };
@@ -50,6 +56,12 @@
 		5609A007E5FD09325AC9B8AB /* Pods-iOSTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTestApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSTestApp/Pods-iOSTestApp.release.xcconfig"; sourceTree = "<group>"; };
 		932F5F15DB24D7ADF03F8EDC /* Pods_iOSTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFC396531CE4816200203D00 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		CFC396551CE5BEF900203D00 /* ProjectAssetsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAssetsDataSource.swift; sourceTree = "<group>"; };
+		CFC396571CE5BF9000203D00 /* ProjectAssetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAssetCollectionViewCell.swift; sourceTree = "<group>"; };
+		CFC396581CE5BF9000203D00 /* ProjectAssetCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectAssetCollectionViewCell.xib; sourceTree = "<group>"; };
+		CFC3965B1CE5BFB100203D00 /* Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
+		CFC3965F1CE5FE6A00203D00 /* AssetsGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsGalleryViewController.swift; sourceTree = "<group>"; };
+		CFC396611CE61CF600203D00 /* ClientStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientStorage.swift; sourceTree = "<group>"; };
 		CFD1A3371CE359CF00A6E385 /* iOSTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD1A33A1CE359CF00A6E385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFD1A3411CE359CF00A6E385 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -182,6 +194,8 @@
 				CFD1A36F1CE3620800A6E385 /* ProjectsViewController.swift */,
 				CFD1A3811CE370C800A6E385 /* ProjectsDataSource.swift */,
 				CFD1A3711CE3622300A6E385 /* ProjectDetailsViewController.swift */,
+				CFC396551CE5BEF900203D00 /* ProjectAssetsDataSource.swift */,
+				CFC3965F1CE5FE6A00203D00 /* AssetsGalleryViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +205,8 @@
 			children = (
 				CFD1A3781CE3685B00A6E385 /* ProjectTableViewCell.swift */,
 				CFD1A3791CE3685B00A6E385 /* ProjectTableViewCell.xib */,
+				CFC396571CE5BF9000203D00 /* ProjectAssetCollectionViewCell.swift */,
+				CFC396581CE5BF9000203D00 /* ProjectAssetCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,6 +225,8 @@
 			children = (
 				CFD1A3861CE3722B00A6E385 /* Project.swift */,
 				CFD1A3881CE373FA00A6E385 /* Client.swift */,
+				CFC3965B1CE5BFB100203D00 /* Asset.swift */,
+				CFC396611CE61CF600203D00 /* ClientStorage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -338,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFD1A3471CE359CF00A6E385 /* LaunchScreen.storyboard in Resources */,
+				CFC3965A1CE5BF9000203D00 /* ProjectAssetCollectionViewCell.xib in Resources */,
 				CFD1A3441CE359CF00A6E385 /* Assets.xcassets in Resources */,
 				CFD1A3421CE359CF00A6E385 /* Main.storyboard in Resources */,
 				CFD1A37B1CE3685B00A6E385 /* ProjectTableViewCell.xib in Resources */,
@@ -416,13 +435,18 @@
 				CFD1A3821CE370C800A6E385 /* ProjectsDataSource.swift in Sources */,
 				CFD1A3701CE3620800A6E385 /* ProjectsViewController.swift in Sources */,
 				CFD1A37A1CE3685B00A6E385 /* ProjectTableViewCell.swift in Sources */,
+				CFC396621CE61CF600203D00 /* ClientStorage.swift in Sources */,
 				CFC396541CE4816200203D00 /* SwiftyJSON.swift in Sources */,
 				CFD1A3801CE36CA700A6E385 /* UIView+IBInspectable.swift in Sources */,
+				CFC396591CE5BF9000203D00 /* ProjectAssetCollectionViewCell.swift in Sources */,
+				CFC396561CE5BEF900203D00 /* ProjectAssetsDataSource.swift in Sources */,
 				CFD1A33B1CE359CF00A6E385 /* AppDelegate.swift in Sources */,
 				CFD1A3721CE3622300A6E385 /* ProjectDetailsViewController.swift in Sources */,
 				CFD1A3891CE373FA00A6E385 /* Client.swift in Sources */,
+				CFC396601CE5FE6A00203D00 /* AssetsGalleryViewController.swift in Sources */,
 				CFD1A3871CE3722B00A6E385 /* Project.swift in Sources */,
 				CFDA9AEA1CE46FB300A515A6 /* NetworkingService.swift in Sources */,
+				CFC3965C1CE5BFB100203D00 /* Asset.swift in Sources */,
 				CFD1A38D1CE46AC100A6E385 /* Constants.swift in Sources */,
 				CFD1A3931CE46D9800A6E385 /* NetworkingAction.swift in Sources */,
 			);

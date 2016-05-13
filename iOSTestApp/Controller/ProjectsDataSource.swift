@@ -37,11 +37,13 @@ class ProjectsDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    // MARK : - Custom methods
+    // MARK : - Custom
     
     func loadData(callback: ((Void) -> Void)?) {
-        NetworkingService.call(Constants.API.Action.Projects, params: nil)
-            .then { response -> Void in
+        NetworkingService.call(Constants.API.Action.Clients, params: nil).then { (response) -> Promise<JSON> in
+            ClientStorage.sharedInstance.refill(response["clients"].arrayValue)
+            return NetworkingService.call(Constants.API.Action.Projects, params: nil)
+        }.then { response -> Void in
             self._dataSource = []
             response["projects"].arrayValue.forEach({ (project) in
                 self._dataSource.append(Project(json: project))

@@ -22,4 +22,10 @@ struct Constants {
         
     }
     
+    struct LabelPrefix {
+        static let Client = "Client: "
+        static let SolutionTypes = "Solution types: "
+        static let Technologies = "Technologies: "
+    }
+    
 }

@@ -38,7 +38,9 @@ class ProjectsViewController: UITableViewController {
     }
     
     func refresh() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.dataSource.loadData { () in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             self.tableView.reloadData()
         }
     }

@@ -9,5 +9,13 @@
 import UIKit
 
 class Client: NSObject {
-
+    
+    let id : Int
+    let name : String
+    
+    init(json: JSON) {
+        self.id = json["id"].intValue
+        self.name = json["name"].stringValue
+        super.init()
+    }
 }

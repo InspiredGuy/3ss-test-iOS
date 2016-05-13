@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MediaPlayer
 
-class ProjectDetailsViewController: UIViewController {
+class ProjectDetailsViewController: UIViewController, UICollectionViewDelegate {
     
     @IBOutlet weak var imageViewLogo: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
@@ -18,18 +19,24 @@ class ProjectDetailsViewController: UIViewController {
     @IBOutlet weak var labelClient: UILabel!
     @IBOutlet weak var labelSolutionTypes: UILabel!
     @IBOutlet weak var labelTechnologies: UILabel!
+    @IBOutlet weak var labelAssets: UILabel!
     @IBOutlet weak var collectionViewAssets: UICollectionView!
     
     @IBOutlet weak var scrollViewWrap: UIScrollView!
     @IBOutlet weak var viewContentWrap: UIView!
+    @IBOutlet weak var viewOverlay: UIView!
     
     var project : Project!
+    var dataSource = ProjectAssetsDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionViewAssets.registerNib(UINib(nibName: "ProjectAssetCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "AssetCell")
+        self.collectionViewAssets.dataSource = self.dataSource
+        self.collectionViewAssets.delegate = self
         self.update()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -43,8 +50,16 @@ class ProjectDetailsViewController: UIViewController {
         if self.project == nil {
             return
         }
-        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        self.labelAssets.hidden = true
         self.imageViewLogo.sd_setImageWithURL(NSURL(string: self.project.imageURLString))
+        self.dataSource.loadData(self.project.id) { () in
+            self.labelAssets.hidden = self.dataSource.assets.isEmpty
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            self.collectionViewAssets.reloadData()
+        }
+        
+        self.viewOverlay.hidden = true
         
         self.labelTitle.text = self.project.name
         self.labelYear.text = "\(self.project.year)"
@@ -56,19 +71,63 @@ class ProjectDetailsViewController: UIViewController {
         self.labelDescription.text = self.project.descriptionText
         self.labelDescription.hidden = (self.project.descriptionText == "")
         
-        //TODO: make attributed client, solution types, technologies
-        //TODO: fetch client info
-        self.labelClient.text = "Client: \(self.project.clientId)"
-        self.labelClient.hidden = (self.project.clientId == 0)
+        if let clientName = ClientStorage.sharedInstance.objectAtIndex(self.project.clientId)?.name {
+            self.setAttributedTitle(self.labelClient, prefix: Constants.LabelPrefix.Client, content: clientName)
+        } else {
+            self.labelClient.hidden = true
+        }
         
-        self.labelSolutionTypes.text = "Solution types: \(self.project.solutionTypes.joinWithSeparator(", "))"
+        self.setAttributedTitle(self.labelSolutionTypes, prefix: Constants.LabelPrefix.SolutionTypes, content: self.project.solutionTypes.joinWithSeparator(", "))
         self.labelSolutionTypes.hidden = self.project.solutionTypes.isEmpty
         
-        self.labelTechnologies.text = "Technologies: \(self.project.technologies.joinWithSeparator(", "))"
+        self.setAttributedTitle(self.labelTechnologies, prefix: Constants.LabelPrefix.Technologies, content: self.project.technologies.joinWithSeparator(", "))
         self.labelTechnologies.hidden = self.project.technologies.isEmpty
-        
-        
-        
     }
+    
+    func setAttributedTitle(label: UILabel, prefix: String, content: String) {
+        let mutableText = NSMutableAttributedString(string: prefix + content)
+        mutableText.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16.0), range: NSMakeRange(0, prefix.characters.count))
+        label.attributedText = mutableText
+    }
+    
+    func showMoviePlayerForURLString(url: String) {
+        if let string = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
+            let player = MPMoviePlayerViewController(contentURL: NSURL(string: string))
+            player.moviePlayer.scalingMode = .AspectFit
+            player.moviePlayer.controlStyle = .Fullscreen
+            self.presentMoviePlayerViewControllerAnimated(player)
+            player.moviePlayer.play()
+        }
+    }
+    
+    func showGallery(item: Asset) {
+        if let galleryController = self.storyboard?.instantiateViewControllerWithIdentifier("AssetsGalleryViewController") as? AssetsGalleryViewController {
+            galleryController.assets = self.dataSource.assets.filter({ (asset) -> Bool in
+                return asset.type == .Image
+            })
+            if let index = galleryController.assets.indexOf(item) {
+                galleryController.startingItem = index
+            }
+            self.presentViewController(galleryController, animated: true, completion: { 
+                
+            })
+        }
+    }
+
+    //MARK: - Collection view delegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let asset = self.dataSource.assets[indexPath.item]
+        switch asset.type {
+        case .Movie:
+            self.showMoviePlayerForURLString(asset.urlString)
+        case .Image:
+            self.showGallery(asset)
+        default:
+            print("Document selected")
+        }
+    }
+    
+    
 
 }
